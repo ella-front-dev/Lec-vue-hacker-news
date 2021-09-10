@@ -1,27 +1,22 @@
 <template>
   <div>
-    <div v-for="(item, index) in ask" :key="index">{{ item.title }}</div>
+    <p v-for="(item, index) in ask" :key="index">
+      <a v-bind:href="item.url">{{ item.title }}</a>
+      <small>{{item.time_ago}} by {{ item.user }}</small>
+    </p>
   </div>
 </template>
 
 <script>
-import {fetchAskList} from '../api/index';
+import { mapState } from 'vuex'
 
 export default {
-  name:"JobView",
-  data(){
-    return{
-      ask: []
-    }
+  name:"AskView",
+  computed: {
+    ...mapState(['ask'])  
   },
   created(){
-    console.log('호출전: ', this)
-    fetchAskList()
-    .then(response => {
-      console.log('호출 후: ', this)
-      this.ask = response.data
-    })
-    .catch(err => console.log(err))
+    this.$store.dispatch('FETCH_ASK')
   },
 }
 </script>

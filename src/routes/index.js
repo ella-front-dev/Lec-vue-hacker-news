@@ -9,7 +9,7 @@ import UserView from '../views/UserView.vue';
 Vue.use(VueRouter);
 
 export const router = new VueRouter({
-  mode: 'history',
+  mode: 'history', // url #갓  제거
   routes: [
     {
       path: '/',

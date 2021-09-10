@@ -1,20 +1,22 @@
 <template>
 <div>
-  <div v-for="(item, index) in this.$store.state.news" :key="index">{{ item.title }}</div>
+   <p v-for="(item, index) in news" :key="index">
+     <a v-bind:href="item.url">{{ item.title }}</a>
+     <small>{{item.time_ago}} by {{ item.user }}</small>
+   </p>
 </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
 export default {  
   name: 'NewsView',
-  data(){
-    return {
-      news: []
-    }
-  },
   created(){
     this.$store.dispatch('FETCH_NEWS')
+  },
+  computed: {
+    ...mapState(['news'])
   }
 }
 </script>
