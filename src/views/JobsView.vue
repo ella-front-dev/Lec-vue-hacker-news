@@ -5,21 +5,26 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import ListItem from '../components/ListItem'
+import bus from '../utils/bus.js'
 
 export default {
   name:"JobView",
     components: {
     ListItem
   },
-  computed: {
-    ...mapGetters({
-      jobs: 'fetchJobs'
-    }),
-  },
   created(){
-    this.$store.dispatch('FETCH_JOBS')
+    bus.$emit('start:spinner')
+    setTimeout(()=>{
+      this.$store.dispatch('FETCH_JOBS')
+      .then(()=>{
+        console.log('fetched')
+        bus.$emit('end:spinner')
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
+    },3000)
   }
 }
 </script>

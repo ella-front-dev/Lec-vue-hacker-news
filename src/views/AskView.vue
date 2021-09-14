@@ -6,18 +6,25 @@
 
 <script>
 import ListItem from '../components/ListItem'
-import { mapState } from 'vuex'
+import bus from '../utils/bus.js'
 
 export default {
   name:"AskView",
   components: {
     ListItem
   },
-  computed: {
-    ...mapState(['ask'])  
-  },
   created(){
-    this.$store.dispatch('FETCH_ASK')
+     bus.$emit('start:spinner')
+    setTimeout(()=>{
+      this.$store.dispatch('FETCH_ASK')
+      .then(()=>{
+        console.log('fetched')
+        bus.$emit('end:spinner')
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
+    },3000)
   },
 }
 </script>
