@@ -1,17 +1,18 @@
 <template>
-  <div>
-    <p v-for="(item, index) in ask" :key="index">
-      <router-link :to="`item/${item.id}`">{{ item.title }}</router-link>
-      <small>{{item.time_ago}} by {{ item.user }}</small>
-    </p>
+  <div> 
+   <list-item></list-item>
   </div>
 </template>
 
 <script>
+import ListItem from '../components/ListItem'
 import { mapState } from 'vuex'
 
 export default {
   name:"AskView",
+  components: {
+    ListItem
+  },
   computed: {
     ...mapState(['ask'])  
   },
@@ -20,7 +21,3 @@ export default {
   },
 }
 </script>
-
-<style>
-
-</style>

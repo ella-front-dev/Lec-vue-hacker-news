@@ -1,29 +1,22 @@
 <template>
   <div>
-    <p v-for="(item, index) in jobs" :key="index">
-      <a v-bind:href="item.url">{{ item.title }}</a>
-      <small>{{item.time_ago}}, {{ item.domain }}</small>
-    </p>
+    <list-item></list-item>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import ListItem from '../components/ListItem'
 
 export default {
   name:"JobView",
+    components: {
+    ListItem
+  },
   computed: {
     ...mapGetters({
       jobs: 'fetchJobs'
     }),
-    // #2
-    // ...mapState({ 
-    //   jobs: state => state.jobs
-    // }),
-    // #1
-    // jobs(){
-    //   return this.$store.state.jobs
-    // }
   },
   created(){
     this.$store.dispatch('FETCH_JOBS')
