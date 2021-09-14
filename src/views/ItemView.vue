@@ -1,18 +1,15 @@
 <template>
   <div>
     <section>
-      <!-- 짛문 상세 정보 -->
-      <div class="user-container">
-        <div>
-          <i class="fas fa-user"></i>
-        </div>
-        <div class="user-description">
-          <router-link :to="`/user/${fetchItems.user}`">{{ fetchItems.user }}</router-link> 
-          <div class="time">
-            {{ fetchItems.time_ago }}
-          </div>
-        </div>
-      </div>
+      <!-- 사용자 정보 -->
+      <user-profile :info="fetchItems">
+        <router-link  slot="username" :to="`/user/${fetchItems.user}`">{{ fetchItems.user }}</router-link> 
+        <template slot="time">
+          {{ 'Posted '+ fetchItems.time_ago }}
+        </template>
+      </user-profile>
+    </section>
+    <section>
       <h2>{{ fetchItems.title }}</h2>
     </section>
     <section>
@@ -23,9 +20,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import UserProfile from '../components/UserProfile.vue'
 
 export default {
   name: 'ItemView',
+  components: {
+    UserProfile
+  },
   computed: {
     ...mapGetters(['fetchItems'])
   },
