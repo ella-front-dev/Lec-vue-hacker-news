@@ -1,65 +1,52 @@
 import { fetchNewsList, fetchJobsList, fetchAskList, fetchList, fetchUserInfo, fetchItemData } from '../api/index'
 
 export default {
-  FETCH_NEWS({commit}){
-    return fetchNewsList()
-    .then(({ data }) => {
-      commit('SET_NEWS', data)
-      return data
-    })
-    .catch(err => {
+  async FETCH_NEWS({commit}){
+    try{
+      let response = await fetchNewsList()
+      commit('SET_NEWS', response.data)
+      return response  // return 을 햐주자 않으면 화면에서의 비동기처리 순서를 보장할 수 없기때문에 꼭 해야한다.
+    }catch(err){
       console.log(err)
-    })
+    }
   },
-  FETCH_JOBS({ commit }){
-    return fetchJobsList()
-    .then(({data}) => {
-      commit('SET_JOBS', data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  },
-  FETCH_ASK({ commit }){
-    return fetchAskList()
-    .then(({data}) => {
-      commit('SET_ASK', data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  },
-  // #2
-  FETCH_LIST({ commit }, pageName){
-    // #3
-    return fetchList(pageName)
-    .then((response) => {
-
-      console.log('#4')
-      commit('SET_LIST', response.data)
+  async FETCH_JOBS({ commit }){
+      let response = await fetchJobsList()
+      commit('SET_JOBS', response.data)
       return response
-    })
-    .catch(err => {
-      console.log(err)
-    })
   },
-  FETCH_USER({ commit }, name){
-    return fetchUserInfo(name)
-    .then(({data}) => {
-      commit('SET_USER', data)
-    })
-    .catch(err => {
+  async FETCH_ASK({ commit }){
+    try{
+      let response = await fetchAskList()
+      commit('SET_ASK', response.data)
+      return response
+    }catch(err){
       console.log(err)
-    })
+    }
+  },
+
+  async FETCH_LIST({ commit }, pageName){
+    let response = await fetchList(pageName)
+    commit('SET_LIST', response.data)
+    return response
+  },
+  async FETCH_USER({ commit }, name){
+    try{
+      let response = await fetchUserInfo(name)
+      commit('SET_USER', response.data)
+      return response
+    }catch(err){
+      console.log(err)
+    }
   }, 
-  FETCH_ITEM({ commit }, id){
-    fetchItemData(id)
-    .then(({data}) => {
-      commit('SET_ITEM', data)
-    })
-    .catch(err => {
+  async FETCH_ITEM({ commit }, id){
+    try{
+      let response = await fetchItemData(id)
+      commit('SET_ITEM', response.data)
+      return response 
+    }catch(err){
       console.log(err)
-    })
+    }
   },
 
 }

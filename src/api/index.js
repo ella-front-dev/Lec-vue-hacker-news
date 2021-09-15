@@ -10,8 +10,13 @@ function fetchNewsList(){
   return axios.get(`${config.baseUrl}news/1.json`)
 }
 
-function fetchJobsList(){
-  return axios.get(`${config.baseUrl}jobs/1.json`)
+async function fetchJobsList(){
+  try{
+    let response = axios.get(`${config.baseUrl}jobs/1.json`)
+    return response
+  }catch(err){
+    console.log(err)
+  }
 }
 
 function fetchAskList(){
@@ -19,7 +24,12 @@ function fetchAskList(){
 }
 
 function fetchList(pageName){
-  return axios.get(`${config.baseUrl}${pageName}/1.json`)
+  try{
+    let response = axios.get(`${config.baseUrl}${pageName}/1.json`)
+    return response
+  }catch(err){
+    console.log(err)
+  }
 }
 
 function fetchUserInfo(username){
