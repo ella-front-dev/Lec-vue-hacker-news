@@ -8,6 +8,7 @@ import UserView from '../views/UserView.vue';
 // import createListView from '../views/CreateListView.js'
 import bus from '../utils/bus.js'
 import { store } from '../store/index.js'
+import AsyncAwait from '../_etc/AsyncAwait.vue'
 
 Vue.use(VueRouter);
 
@@ -67,6 +68,10 @@ export const router = new VueRouter({
     {
       path: '/user/:id',
       component: UserView
+    },
+    {
+      path: '/example1',
+      component: AsyncAwait
     },
   ]
 })
