@@ -3,14 +3,13 @@
 </template>
 
 <script>
-import { Chart, LinearScale, BarElement, BarController, CategoryScale } from 'chart.js';
-Chart.register( LinearScale,BarElement, BarController, CategoryScale);
+
 
 export default {
   mounted(){
     // 인스턴트가 화면에 붙고 나서 실행되어야하믄로 mouted 훅 사용
     //var ctx = document.getElementById('barChart');
-    var myChart = new Chart(this.$refs.barChart, {
+    var myChart = new this.$_Chart(this.$refs.barChart, {
         type: 'bar',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],

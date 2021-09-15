@@ -10,7 +10,7 @@ export default {
 mounted(){
     // 인스턴트가 화면에 붙고 나서 실행되어야하믄로 mouted 훅 사용
     //var ctx = document.getElementById('lineChart');
-    var myChart = Chart(this.$refs.lineChart, {
+    var myChart = this.$_Chart(this.$refs.lineChart, {
         type: 'line',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
