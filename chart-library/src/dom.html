@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div ref="app" id="app">hello</div>
+  <script>
+    // 모두 같은 기능
+    //JS
+    let divElement1 = document.querySelector('#app');
+    let divElement2 = document.getElementById('app');
+    // jQuery
+    let divElement3 = $('#app');
+    // vue
+    let divElement4 = this.$refs.app; 
+  </script>
+</body>
+</html>
