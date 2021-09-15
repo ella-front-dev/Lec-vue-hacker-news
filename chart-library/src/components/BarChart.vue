@@ -1,0 +1,60 @@
+<template>
+  <canvas ref="barChart" id="barChart" width="400" height="400"></canvas>
+</template>
+
+<script>
+import { Chart, LinearScale, BarElement, BarController, CategoryScale } from 'chart.js';
+Chart.register( LinearScale,BarElement, BarController, CategoryScale);
+
+export default {
+  mounted(){
+    // 인스턴트가 화면에 붙고 나서 실행되어야하믄로 mouted 훅 사용
+    //var ctx = document.getElementById('barChart');
+    var myChart = new Chart(this.$refs.barChart, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          plugins: {
+            title: {
+                display: true,
+                text: '# of Votes'
+            }
+          },
+          scales: {
+            y: {
+                beginAtZero: true
+            }
+          }
+        }
+    });
+    console.log(myChart)
+  }
+}
+</script>
+
+<style>
+
+</style>
