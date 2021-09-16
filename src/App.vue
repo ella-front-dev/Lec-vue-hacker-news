@@ -25,6 +25,7 @@ export default {
     }
   },
   created(){
+    console.log(process.env.VUE_APP_TITLE);
     bus.$on('start:spinner', ()=>{ this.loadingStatus = true })
     bus.$on('end:spinner', ()=>{ this.loadingStatus = false })
   },
