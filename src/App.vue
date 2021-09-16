@@ -1,70 +1,28 @@
 <template>
-  <div id="app">
-    <tool-bar></tool-bar>
-    <transition name="page">
-      <router-view></router-view>
-    </transition>
-    <spinner :loading="loadingStatus"></spinner>
+  <div>
+    <app-header :title="appTitle"></app-header>
+    <app-content :items="items" @renew="renewItems"></app-content>
   </div>
 </template>
 
 <script>
-import ToolBar from './components/ToolBar.vue'
-import Spinner from './components/Spinner.vue'
-import bus from './utils/bus.js'
-
+import AppHeader from './components/AppHeader.vue';
+import AppContent from './components/AppContent.vue';
 export default {
-  name: 'App',
   components: {
-    ToolBar,
-    Spinner
+    AppHeader,
+    AppContent,
   },
-  data(){
+  data() {
     return {
-      loadingStatus: false
+      appTitle: 'Common Approach',
+      items: [10, 20, 30],
     }
   },
-  created(){
-    bus.$on('start:spinner', ()=>{ this.loadingStatus = true })
-    bus.$on('end:spinner', ()=>{ this.loadingStatus = false })
-  },
-  beforeDestroy(){
-    bus.$off('start:spinner', ()=>{ this.loadingStatus = true })
-    bus.$off('end:spinner', ()=>{ this.loadingStatus = false })
-  },
-  methodS: {
-    startSpinner(){
-      this.loadingStatus = true
+  methods: {
+    renewItems() {
+      this.items = [40, 50, 60];
     },
-    endSpinner(){
-      this.loadingStatus = false
-    }
-  }
+  },
 }
 </script>
-<style>
-  body {
-    padding: 0;
-    margin: 0;
-  }
-
-  a {
-    color: #35495e;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  a.router-link-exact-active {
-    text-decoration: underline;
-  }
-
-  .page-enter-active, page-leave-active {
-    transition: opacity .5s;
-  }
-  .page-enter, page-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-  }
-</style>

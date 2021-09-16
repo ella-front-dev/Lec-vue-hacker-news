@@ -1,4 +1,4 @@
-# vue-hacker-news
+# common
 
 ## Project setup
 ```
