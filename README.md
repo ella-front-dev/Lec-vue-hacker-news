@@ -1,4 +1,4 @@
-# vue-hacker-news
+# slot
 
 ## Project setup
 ```

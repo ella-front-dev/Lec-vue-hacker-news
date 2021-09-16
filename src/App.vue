@@ -1,70 +1,33 @@
 <template>
-  <div id="app">
-    <tool-bar></tool-bar>
-    <transition name="page">
-      <router-view></router-view>
-    </transition>
-    <spinner :loading="loadingStatus"></spinner>
+  <div>
+    <!-- slot 사용  -->
+    <!-- <ul>
+      <item>아이템 1</item>
+      <item>아이템 2</item>
+      <item>아이템 3</item>
+      <item>아이템 4</item>
+      <item>아이템 5</item>
+    </ul> -->
+
+    <!-- slot 사용 안함  -->
+    <ul>
+       <not-slot-item v-for="(item, index) in items" :key="index" :item="item"></not-slot-item>
+    </ul>
   </div>
 </template>
 
 <script>
-import ToolBar from './components/ToolBar.vue'
-import Spinner from './components/Spinner.vue'
-import bus from './utils/bus.js'
-
+//import Item from './components/Item.vue';
+import NotSlotItem from './components/NotSlotItem'
 export default {
-  name: 'App',
   components: {
-    ToolBar,
-    Spinner
+    //Item,
+    NotSlotItem
   },
   data(){
     return {
-      loadingStatus: false
+      items: [ '아이템1','아이템2','아이템3','아이템4', '아이템5']
     }
   },
-  created(){
-    bus.$on('start:spinner', ()=>{ this.loadingStatus = true })
-    bus.$on('end:spinner', ()=>{ this.loadingStatus = false })
-  },
-  beforeDestroy(){
-    bus.$off('start:spinner', ()=>{ this.loadingStatus = true })
-    bus.$off('end:spinner', ()=>{ this.loadingStatus = false })
-  },
-  methodS: {
-    startSpinner(){
-      this.loadingStatus = true
-    },
-    endSpinner(){
-      this.loadingStatus = false
-    }
-  }
 }
 </script>
-<style>
-  body {
-    padding: 0;
-    margin: 0;
-  }
-
-  a {
-    color: #35495e;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  a.router-link-exact-active {
-    text-decoration: underline;
-  }
-
-  .page-enter-active, page-leave-active {
-    transition: opacity .5s;
-  }
-  .page-enter, page-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-  }
-</style>
