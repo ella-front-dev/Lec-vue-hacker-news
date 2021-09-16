@@ -1,70 +1,25 @@
 <template>
-  <div id="app">
-    <tool-bar></tool-bar>
-    <transition name="page">
-      <router-view></router-view>
-    </transition>
-    <spinner :loading="loadingStatus"></spinner>
+  <div>
+    <fetch-data url="https://jsonplaceholder.typicode.com/users/1">
+      <div slot-scope="{response, loading}">
+        <!-- 여기서만  response, loading 를 쓸 수 있다.-->
+        <div v-if="!loading">
+          <p>{{ response.name }}</p>
+          <p>{{ response.email }}</p>
+        </div>
+        <div v-if="loading">
+          Loading....
+        </div>
+      </div>
+    </fetch-data>
   </div>
 </template>
 
 <script>
-import ToolBar from './components/ToolBar.vue'
-import Spinner from './components/Spinner.vue'
-import bus from './utils/bus.js'
-
+import FetchData from './components/FetchData.vue'
 export default {
-  name: 'App',
   components: {
-    ToolBar,
-    Spinner
+    FetchData
   },
-  data(){
-    return {
-      loadingStatus: false
-    }
-  },
-  created(){
-    bus.$on('start:spinner', ()=>{ this.loadingStatus = true })
-    bus.$on('end:spinner', ()=>{ this.loadingStatus = false })
-  },
-  beforeDestroy(){
-    bus.$off('start:spinner', ()=>{ this.loadingStatus = true })
-    bus.$off('end:spinner', ()=>{ this.loadingStatus = false })
-  },
-  methodS: {
-    startSpinner(){
-      this.loadingStatus = true
-    },
-    endSpinner(){
-      this.loadingStatus = false
-    }
-  }
 }
 </script>
-<style>
-  body {
-    padding: 0;
-    margin: 0;
-  }
-
-  a {
-    color: #35495e;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  a.router-link-exact-active {
-    text-decoration: underline;
-  }
-
-  .page-enter-active, page-leave-active {
-    transition: opacity .5s;
-  }
-  .page-enter, page-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-  }
-</style>
