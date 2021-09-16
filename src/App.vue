@@ -1,70 +1,58 @@
 <template>
-  <div id="app">
-    <tool-bar></tool-bar>
-    <transition name="page">
-      <router-view></router-view>
-    </transition>
-    <spinner :loading="loadingStatus"></spinner>
+  <div>
+    <h1>Chart.js</h1>
+    <bar-chart v-on:refresh:chart="refreshChart" v-bind:propsdata="chartDataSet"></bar-chart>
+    <line-chart></line-chart>
   </div>
 </template>
 
 <script>
-import ToolBar from './components/ToolBar.vue'
-import Spinner from './components/Spinner.vue'
-import bus from './utils/bus.js'
+import BarChart from './components/BarChart.vue'
+import LineChart from './components/LineChart.vue'
 
 export default {
-  name: 'App',
   components: {
-    ToolBar,
-    Spinner
+    BarChart,
+    LineChart,
   },
   data(){
     return {
-      loadingStatus: false
+      chartDataSet : [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
     }
   },
   created(){
-    bus.$on('start:spinner', ()=>{ this.loadingStatus = true })
-    bus.$on('end:spinner', ()=>{ this.loadingStatus = false })
+    // getChartData()
+    // .then(response => response.data)
+    // .catch(err => console.log(err))
   },
-  beforeDestroy(){
-    bus.$off('start:spinner', ()=>{ this.loadingStatus = true })
-    bus.$off('end:spinner', ()=>{ this.loadingStatus = false })
-  },
-  methodS: {
-    startSpinner(){
-      this.loadingStatus = true
-    },
-    endSpinner(){
-      this.loadingStatus = false
+  methods: {
+    refreshChart(){
+      this.chartDataSet = [10,20]
     }
   }
 }
 </script>
+
 <style>
-  body {
-    padding: 0;
-    margin: 0;
-  }
 
-  a {
-    color: #35495e;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  a.router-link-exact-active {
-    text-decoration: underline;
-  }
-
-  .page-enter-active, page-leave-active {
-    transition: opacity .5s;
-  }
-  .page-enter, page-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-  }
 </style>

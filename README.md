@@ -1,4 +1,4 @@
-# vue-hacker-news
+# chart-library
 
 ## Project setup
 ```
