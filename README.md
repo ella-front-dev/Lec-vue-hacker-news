@@ -1,4 +1,4 @@
-# vue-hacker-news
+# controlled
 
 ## Project setup
 ```
