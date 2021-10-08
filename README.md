@@ -3,8 +3,6 @@
 ## 프로젝트 소개
 Hacker News를 Vue 프레임워크로 클론한 프로젝트 입니다.
 
-> 해당 글의 내용은 [인프런] Vue.js 끝장내기 - 실무에 필요한 모든 것 강의를 토대로 만들어졌습니다.
-
 ### 배포
  
 배포 URL : https://flamboyant-saha-676203.netlify.app/news
